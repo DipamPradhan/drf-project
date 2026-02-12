@@ -50,7 +50,6 @@ class UserSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
     # nested serializer
-    user = UserSerializer(read_only=True)
     items = OrderItemSerializer(many=True, read_only=True)
     total_price = serializers.SerializerMethodField(method_name="total")
 
