@@ -24,11 +24,16 @@ class OrderItemSerializer(serializers.ModelSerializer):
         max_digits=10, decimal_places=2, source="product.price"
     )
 
+    # product = ProductSerializer(
+    #     read_only=True,
+    # )
+
     class Meta:
         model = OrderItem
         fields = (
             "product_name",
             "product_price",
+            # "product",
             "quantity",
             "item_subtotal",
         )
@@ -63,3 +68,13 @@ class OrderSerializer(serializers.ModelSerializer):
             "items",
             "total_price",
         )
+
+
+class ProductInfoSerializer(serializers.Serializer):
+    products = ProductSerializer(
+        many=True,
+        read_only=True,
+    )
+
+    count = serializers.IntegerField()
+    max_price = serializers.FloatField()
