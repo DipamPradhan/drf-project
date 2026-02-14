@@ -6,7 +6,7 @@ from apis.models import Order, Product
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from rest_framework.views import APIView
 
 
@@ -21,9 +21,25 @@ from rest_framework.views import APIView
 #     return Response(serializer.data)
 
 
-class ProductListAPIView(generics.ListAPIView):
-    queryset = Product.objects.filter(stock__gt=0)
+# class ProductListAPIView(generics.ListAPIView):
+#     queryset = Product.objects.all()
+#     serializer_class = ProductSerializer
+
+
+# class ProductCreateAPIView(generics.CreateAPIView):
+#     model = Product
+#     serializer_class = ProductSerializer
+
+
+class ProduuctListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+    def get_permissions(self):
+        self.permission_classes = [AllowAny]
+        if self.request.method == "POST":
+            self.permission_classes = [IsAdminUser]
+        return super().get_permissions()
 
 
 # @api_view(["GET"])
