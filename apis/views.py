@@ -32,10 +32,12 @@ from .filters import ProductFilter
 #     serializer_class = ProductSerializer
 
 
-class ProduuctListCreateAPIView(generics.ListCreateAPIView):
+class ProductListCreateAPIView(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     filterset_class = ProductFilter
+    search_fields = ["name", "description"]
+    ordering_fields = ["price", "stock", "name"]
 
     def get_permissions(self):
         self.permission_classes = [AllowAny]
