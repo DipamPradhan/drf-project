@@ -3,6 +3,7 @@ black==26.1.0
 click==8.3.1
 colorama==0.4.6
 Django==5.0.14
+django-cors-headers==4.3.1
 django-extensions==3.2.3
 django-silk==5.4.3
 djangorestframework==3.15.2
